@@ -1,6 +1,7 @@
 package com.tts.techtalenttwitter.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
