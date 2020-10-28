@@ -11,3 +11,4 @@ public class TechtalenttwitterApplication{
 		SpringApplication.run(TechtalenttwitterApplication.class, args);
 	}
 }
+
