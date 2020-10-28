@@ -13,14 +13,14 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
-    private String roles;
+    private String role;
 
     public Role(){
     }
 
-    public Role(Long id, String roles) {
+    public Role(Long id, String role) {
         this.id = id;
-        this.roles = roles;
+        this.role = role;
     }
 
 
@@ -32,17 +32,17 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return "Role [id=" + id + ", roles=" + roles + "]";
+        return "Role [id=" + id + ", role=" + role + "]";
     }
 
     
