@@ -23,47 +23,30 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Tweet {
+
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tweet_id")
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tweet_id")
+    private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private User user;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
-	// @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	// @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	// private List<Tag> tags;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "tweet_tag", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags;
 
-	@NotEmpty(message = "Tweet cannot be empty")
-	@Length(max = 280, message = "Tweet cannot have more than 280 characters")
-	private String message;
+    @NotEmpty(message = "Tweet cannot be empty")
+    @Length(max = 280, message = "Tweet cannot have more than 280 characters")
+    private String message;
 
-	@CreationTimestamp
+    @CreationTimestamp
     private Date createdAt;
-
-    
-
-    public Tweet() {
-    }
-
-    public Tweet(Long id, User user,
-            @NotEmpty(message = "Tweet cannot be empty") @Length(max = 280, message = "Tweet cannot have more than 280 characters") String message,
-            Date createdAt) {
-        this.id = id;
-        this.user = user;
-        this.message = message;
-        this.createdAt = createdAt;
-    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -74,13 +57,13 @@ public class Tweet {
         this.user = user;
     }
 
-    // public List<Tag> getTags() {
-    //     return tags;
-    // }
+    public List<Tag> getTags() {
+        return tags;
+    }
 
-    // public void setTags(List<Tag> tags) {
-    //     this.tags = tags;
-    // }
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public String getMessage() {
         return message;
@@ -100,12 +83,8 @@ public class Tweet {
 
     @Override
     public String toString() {
-        return "Tweet [createdAt=" + createdAt + ", id=" + id + ", message=" + message + ", user="
+        return "Tweet [createdAt=" + createdAt + ", id=" + id + ", message=" + message + ", tags=" + tags + ", user="
                 + user + "]";
     }
-
-    
-    
-    
 
 }
