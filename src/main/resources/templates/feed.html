@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
->
-  <head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
     <title>Feed</title>
     <div th:replace="/fragments/headlinks :: head-styles"></div>
-  </head>
-  <body>
+</head>
+
+<body>
     <div th:replace="/fragments/navbar :: navbar"></div>
     <div class="container">
-      <h2>Tweets</h2>
 
-      <!-- If No Tweets in Feed -->
-      <div th:if="${#lists.isEmpty(tweetList)}">
-        <h2>No Tweets in your feed!</h2>
-      </div>
+        <ul class="nav nav-tabs">
+            <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }">
+                <a href="/tweets">All</a></li>
+            <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }">
+                <a href="/tweets?filter=following">Following</a></li>
+        </ul><br />
+
+        <div th:if="${#lists.isEmpty(tweetList) and filter == 'all'}">
+    <h3>No tweets have been created yet</h3>
+</div>
+<div th:if="${#lists.isEmpty(tweetList) and filter == 'following'}">
+    <h3>No tweets have been created by your followers</h3>
+</div>
       <!--  -->
 
       <!-- <div class="list-group"> -->
@@ -26,11 +33,7 @@
               th:text="${tweet.user.username}"
               th:href="@{/users/} + ${tweet.user.username}"
             ></a>
-            <small
-              ><span
-                th:text="${#dates.format(tweet.createdAt, 'M/d/yy')}"
-              ></span
-            ></small>
+            <small style="color: black" th:text="${tweet.date}"></small>
           </h5>
           <div class="row">
             <div class="col col-sm-6">
