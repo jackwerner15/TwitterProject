@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthorizationController {
+
     @Autowired
     private UserService userService;
 
-    @GetMapping(value="/login")  //URL
-    public String login(){
-        return "login";    //HTML
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
-    @GetMapping(value="/signup")
-    public String registration(Model model){
+    @GetMapping(value = "/signup")
+    public String registration(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "registration";
