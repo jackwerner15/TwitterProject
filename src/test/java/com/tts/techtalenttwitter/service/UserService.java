@@ -1,7 +1,5 @@
 package com.tts.techtalenttwitter.service;
 
-import java.util.List;
-
 import com.tts.techtalenttwitter.model.Role;
 import com.tts.techtalenttwitter.model.User;
 import com.tts.techtalenttwitter.repository.RoleRepository;
@@ -24,9 +22,8 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, 
-                       RoleRepository roleRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -35,17 +32,16 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-        
-    public List<User> findAll(){
+
+    public List<User> findAll() {
         return (List<User>) userRepository.findAll();
     }
-        
+
     public void save(User user) {
         userRepository.save(user);
     }
 
-
-    public User saveNewUser(User user){
+    public User saveNewUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("USER");
@@ -53,13 +49,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getLoggedInUser(){
-        String loggedInUsername = SecurityContextHolder.
-            getContext().getAuthentication().getName();
-    
+    public User getLoggedInUser() {
+        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         return findByUsername(loggedInUsername);
     }
-
 }
-
-
